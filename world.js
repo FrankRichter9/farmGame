@@ -1,20 +1,28 @@
 import { ctx } from './index.js'
 
+const grassTexture = document.createElement("IMG");
+grassTexture.src = './textures/grass/grass.png'
+
+
 export const World = {
     map: [],
     size: {
-        x: 10000,
-        y: 10000,
+        x: 1000,
+        y: 1000,
     },
     block: {
         size: {
-            x: 100,
-            y: 100
+            x: 50,
+            y: 50
         }
     },
     typesBlocks: {
         gress: {
-            type: 'gress'
+            type: 'grass',
+            render(x, y) {
+                // ctx.fillRect(x + 10, y + 10, World.block.size.x - 20, World.block.size.y - 20)
+                ctx.drawImage(grassTexture, x, y)
+            }
         }
     }
 }
@@ -37,7 +45,5 @@ export function renderWorld() {
 }
 
 function renderBlock(coordinates, block){
-    if(block === World.typesBlocks.gress){
-        ctx.fillRect(coordinates.x + 10, coordinates.y + 10, World.block.size.x - 20, World.block.size.y - 20)
-    }
+    block.render(coordinates.x, coordinates.y)
 }
